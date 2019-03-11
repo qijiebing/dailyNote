@@ -48,3 +48,56 @@ ES6模块化
   -------------------------
   ES6模块化 浏览器还不支持（新浏览器其他都支持的 就这个不支持）
   webpack 编译 -浏览器支持
+
+  webpack
+   npm i webpack -g 
+   新建 webpack.config.js
+   webpack 编译
+   1 entry -- 入口地址
+   2 output -- 输出
+     path：绝对路径
+     filename: 文件名
+   3 mode --模式
+   4 所有当前路径前面加 ./ (nodejs要求)
+
+
+   ----------------------
+
+   export
+      export let a = xxx;
+      export const a = xxx
+
+        let a,b,c,d;
+      export {a,b,c,d}
+
+      export function sum(){
+
+      } 
+
+      export class person{
+          constructor(name){
+              this.name = name;
+          }
+      }
+
+      export default 'aaaa';
+
+      //从另一个模块导出(中转)
+      export * from './m2' 
+      export {a,b,c} from './m2'
+      export {default} from './m2'
+
+import
+    import * as xx from './index';
+
+    import {a,b,c} from './index';
+
+    //引入default默认成员 import x from './xx' ; x export没有参数与 但是default有 就返回default
+    import xxx from './index' 
+
+
+//模块的代码引入进来 不引入内部成员(非程序 图片 css)
+    import './1.jpg'
+
+//异步引入（动态引入） mod2（返回promise对象）
+    let promise = import('./xx'); 

@@ -1,0 +1,1 @@
+export let qq = 'abc' //返回一个promise对象
