@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      document.onclick = function(ev) {
+          alert(ev.clientX+'xx'+ ev.clientY)
+      }
+      doucment.onclick=(ev)=>{
+             alert(ev.clientX + 'xx' + ev.clientY)
+      }
+
+      let sum = (a,b)=>{
+          return a+b
+      }
+    //   return的时候
+      let sum = (a,b)=>a+b
+   //return json 不行 , 要包括括号
+   let sum= (a,b)=>({a:a,b:b}) 
+
+// 修复 this
+let json = {
+    a:1,b:2,
+    show:function() {
+        console.log(this)
+        alert(this.a+this.b)
+    }
+}
+//整除调用 json.show 是可以的
+document.onclick = json.show; //这时候 this就执行时候的window
+
+    let json = {
+        a: 1, b: 2,
+        show:  () => {
+            console.log(this)
+            alert(this.a + this.b)
+        }
+    }
+//this取决于执行时候的环境 绑定到对象里面
+
+/* 2 参数展开
+    剩余参数 -- 必须在最后
+    展开数组 -- 数组内部拿出来
+*/
+function show(a,b,...arr){ //剩余参数必须在最后 ，放其他位置都会报错
+    console.log(a,b,arr)
+}
+show(1,2,3,4,5,6,7)
+
+let arr= [1,2,3,4,5];
+console.log(...arr) // 1,2,3,4,5
+function sum (...arr) {
+    alert()
+}
+
+//合并数组 concat
+let arr1=[1,2,3];
+let arr2 = [2,3,4];
+let merge = [...arr1,...arr2];
+
+/*
+系统对象
+Array
+    map 映射     1对1   
+    forEach 遍历 循环一遍
+    filter 过滤  
+    reduce 减少  多对1（求和 求平均数）
+*/
+Map //不影响原数组 返回新数组
+let arr = [100, 98,77,19,65,67];
+let res = arr.map(function(item,index) {
+    if(item>=60){
+        return true;
+    }else{
+        return false
+    }
+})
+let res2 = arr.map( item => item >= 60);
+
+forEach //可以改变本数组
+let arr= [12,5,8,5];
+ar.forEach((item,index)=>{
+    alert(`第${item}是${index}`)
+})
+
+filter //过滤
+let arr = [12,8,19,21,81,100,107];
+arr.filter(item=>item%2==0); //取偶数
+
+reduce //减少 多对1（求和 求平均数）
+let arr = [12,23,46,12,15];
+arr.reduce(function(tmp,item ,index) {  //tmp临时和 初始值是数组第一位
+    return tmp + item;
+})
+
+arr.reduce((tmp,item,index)=>{
+    if(index<arr.length-1){
+        return tmp + item
+    }else{
+        return (tmp+item)/index
+    }
+})
+
+String
+    //字符串模板 `${}`
+    startsWidth  //if(url.startsWidth('http://'))  indexOf ==0
+    endsWith  
+
+JSON
+    {a:12}
+// 1标注写法 key加双引号
+// 2 JSON对象
+//  JSON.parse JSON.stringify
+
+
+/*
+异步处理
+*/ 
+Promise
+async/await
+异步操作
+// 异步 多个操作 可以一起进行 互不干扰 
+// 同步 操作一个个进行 
+    Promise
+let p = new Promise((resolve,reject)=>{
+    resolve(data);
+})
+p.then((data)=>{
+    console.log(data)
+}).catch(()=>{
+
+})
+
+ Promise.all([
+     p1,
+     P2,
+     p3
+ ]).then((data)=>{
+     let p1 = data[0];
+     let p2 = data[1];
+     let p3 = data[2];
+
+     let [data1,data2,data3] = data
+ }).then(([data1,data2,data3])=>{
+     console.log(data1, data2, data3)
+ })
+//但是 一个错了 就全错了；
+//如果all的里面 有逻辑先后的话 还是要做回调
+
+// 异步做 逻辑先后的处理，以同步的方式来做异步处理  async/await(其实还是异步全部执行的 性能好)
+
+ async function show(){
+     let data1 = await $.ajax({url:'data1',dataType:'json',success:()=>{}})
+     let data2 = await $.ajax({url:'data2',dataType:'json',success:()=>{}})
+     let data3 = await $.ajax({url:'data3',dataType:'json',success:()=>{}})
+     //同步方式执行
+}
+
+let xxx = async ()=>{}
+
+    </script>
+</body>
+</html>

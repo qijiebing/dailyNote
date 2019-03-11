@@ -1,0 +1,25 @@
+ES6 兼容
+
+babel
+1 在线  引入 babel.js 比较慢 运行时候编译的
+2 命令行编译
+ nodejs
+npm i @babel/core @babel/cli @babel/preset-env
+
+添加packagejson脚本 调用cli命令
+添加 .babelrc --声明preset预设版本
+
+
+ES6 (ECMA 2015)
+
+ES7 (ECMA 2016)
+   ** 求幂
+   
+ES8 (ECMA 2017)
+  async await
+
+ES9 (ECMA 2018)
+  rest/spread
+  异步迭代
+  Promise.finally（）
+  正则模式
