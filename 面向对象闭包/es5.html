@@ -16,6 +16,21 @@
 
       var p = new Person('qjb',18)
       
+    //继承
+    
+    function  Worker(name,age,job){
+        Person.call(this,name,age); //骗夫类的this
+        this.job = job
+    }
+    Worker.prototype = new Person();
+    Worker.prototype.constructor = work; //防止继承prototype 混乱
+
+    Worker.prototype.showJob = function () {
+        alert(this.job)
+    }
+  
+   let w = new Worker('db', 19 , '码农')
+
     </script>
 </body>
 </html>

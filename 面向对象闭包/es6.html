@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <script>
     class Person{
         constructor(name,age){
             this.name = name;
@@ -14,11 +15,35 @@
 
         show(){
             alert(this.age);
-            alert(this.name)
+            alert(this.name);
         }
     }
 
     let p = new Person('blue',18);
     p.show()
+
+    //继承
+
+    class Worker extends Person{
+        constructor(name,age,job){
+            super(name,age);
+            this.job = job;
+        }
+
+        showJob(){
+            alert(`${this.name}:${this.age}:${this.job}`)
+        }
+    }
+
+   let w = new Worker('db',18,'码农');
+
+   w.showJob()
+
+
+    </script>
+
+   
+
+    //继承
 </body>
 </html>
