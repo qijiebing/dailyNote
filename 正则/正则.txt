@@ -21,5 +21,13 @@ let reg=/\d/g;
 alert(str.match(reg))
 
 g 全局匹配
+量词：
 + 贪婪模式 1-多   let reg=/\d+/g;
 * 贪婪 0-多
+
+replace 
+
+let str = 'adsf456a4df56ads56f46adf adf46';
+let reg=/\d/g;
+str.replace(/a/gi,'*');
+
