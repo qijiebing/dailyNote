@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            let ot = document.getElementById('tex');
+            let on = document.getElementById('btn1');
+            let reg = /^[1-9]\d{4,11}$/;
+            if(reg.test(ot.value)){
+                alert(1)
+            }else{
+                alert(2)
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id='tex'>
+    <input type="button" value='校验' id='btn1'>
+
+</body>
+</html>
