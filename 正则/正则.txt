@@ -1,0 +1,25 @@
+正则  -- 工具
+匹配字符串
+
+校验 -- 安全性
+采集数据
+
+-------------
+
+
+
+/\.(jpg|png|gif)/i  //i忽略 大小写
+
+定界符  --  //
+search
+i忽略大小写
+
+match
+
+let str = 'adsf456a4df56ads56f46adf adf46';
+let reg=/\d/g;
+alert(str.match(reg))
+
+g 全局匹配
++ 贪婪模式 1-多   let reg=/\d+/g;
+* 贪婪 0-多
