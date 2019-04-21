@@ -1,0 +1,189 @@
+1 目录
+  cd
+  node js
+
+包
+<script src="xx"></script>
+
+1 安装 
+cnpm install multer
+npm i  multer
+
+2 引入
+ cnost multer = require('multer')
+
+3 使用
+
+//监听 等等客户端的链接
+//端口： 服务器的门牌号数字
+
+----------------------------
+nodejs 是服务器
+npm -》cnpm
+npm install xx
+const xx = require('xx');
+
+------------------------------
+
+http
+response.write()
+response.end()
+
+fs
+// fs.writeFile(path,data,callback); //写文件
+// fs.readFile(path,callback) //读文件
+
+服务器：
+1 响应请求
+2 数据交互
+3 数据存储
+----------------------------
+
+
+数据交互
+http --  协议
+----------------------
+
+http 1.0 RFC 1945
+http 1.1 RFC 2616 持久连接（不断开）
+https    RFC 2818 安全协议 非对称加密
+http 2.0 RFC 7450 加密 头部压缩 服务器推送 管线操作 多路复用
+
+http 报文结构
+header头 信息 《= 32k
+body体 数据  <=2G
+
+-----------------------------
+状态码
+
+1xx 信息
+2xx 成功
+3xx 重定向
+4xx 请求错误
+5xx 服务器错误
+6--拓展码
+
+--------------------------
+
+请求方法
+
+GET
+ 获取数据
+ 数据是放在url里面传输 
+ 容量小 《=32k
+POST
+ 向服务器发送数据
+ 放body里面
+ 容量大
+ ---------------------------
+
+接收浏览器的GET数据
+url 模块
+url.parse(req.url,true)=>{
+    path,query
+}
+---------------------------
+
+接收浏览器的post数据 body
+分几次 on data
+var arr = [];
+req.on('data',buffer=>{
+    arr.push(buffer)
+})
+req.on('end', ()=>{
+ let buffer = Buffer.concat(arr);
+})
+
+POST = 'xx=xx&xxx=xx'
+queryString.parse('xx')
+
+
+---------------------------------
+
+http 原理
+fs.writeFile/readFile
+url.parse
+queryString.parse
+
+---------
+接口 API
+1 请求文件 -》 结果
+2 请求接口 -》操作
+
+-------------------------------
+
+注册接口
+/reg?name=xxxx&pass=xx
+> {err:1,msg:'why'}
+
+登录接口
+
+/login?user = xx&pass=xxx
+=>{err:xxx,msg:xxx}
+
+
+1 处理文件
+2 处理接口
+3 储存数据
+
+-----------------------
+模块
+1 系统模块
+2 第三方
+
+------------------
+
+nodejs 的模块系统
+1 定义模块
+cmd
+amd
+esm
+--------
+module
+exports
+require
+
+------------
+系统包
+1 assert 断言
+2 path 路径
+
+wed => root/a/d
+../c 
+
+path.dirname(str); a/b/c
+path.extname(s)  ../c
+path.basename(s) build
+
+path.resolve(__dirname,'build') //__dirname魔术变量 获得绝对路径下的文件夹
+
+3 url 网址
+  const url =requrie('url')
+  let str = 'www/www/www/www'
+  url.parse(str)//解析对象
+4 querystring 解析请求数据
+  querystring.parse('a=xx&b=cc')
+  querystring.stringify()
+
+5 net 网络通信
+-- ----------------------------
+  OSI七层参考模型
+  物理层 数据链路层 网络层（IP） 传输层（TCP） 会话层 表现层 应用层
+
+   五层
+  物理层 数据链路层 网络层（IP） 传输层（TCP）  应用层
+-------------------------------
+  net 传输层
+  传输层（TCP） 严谨
+  UDP 不管错误
+
+  -----------------------------------
+  数据通信
+  GET 
+  POST
+    普通数据 querystring
+    文件数据 
+
+-------------------------------------
+POST文件
+Buffer
