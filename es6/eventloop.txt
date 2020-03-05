@@ -1,0 +1,18 @@
+eventloop是js事件循环机制
+1正常运行时
+2 宏任务 macro = script ready settimeout setinterval
+3 微任务 micro = promise.then async await process.next
+
+执行时 宏任务 微任务都会存入桟中
+
+new promise((resolve,reject) => { console.log(1)})  // new Promise 回调函数中的会立即执行
+promise.then(()=> { console.log()}) // then中的推入微任务桟
+
+setTimeout宏任务中包裹微任务的话 将宏任务存入宏任务桟 等到执行这个宏任务的时候  在执行对应的微任务
+多个 setTimeout 都存入宏任务桟 按序执行宏任务=》里面的微任务
+
+async xx()=> {
+  await promise() // 此处的await后面函数promise是微任务 存入微任务桟 
+  console.log(123)  //  await后的语句算是微任务 但是放入微任务桟最后一个
+}
+new Promise().then(resolve=> {console.log(456)})  // 顺序1 await promise()微任务 2 then微任务  3 console.log(123) 
