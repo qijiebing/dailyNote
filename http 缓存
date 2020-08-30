@@ -1,0 +1,49 @@
+## 首次访问一个url 没有缓存 但是服务器会响应一些header信息 如： expires cache-control last-modified etag 等等来记录下次请求是否返回 如何缓存
+再次访问这个url时候 浏览器会根据首次放回返回的header信息 来决策是否缓存 如何缓存
+
+第一条线路 当浏览器再次访问某个url 会先获取资源header信息 判断是否明总强缓存（cache-control expires） 如果命中 直接从缓存读取资源 包括响应的header信息（请求不会和服务器通信） 也就是强缓存
+ status code: 200(from memory cache)
+ cache-control max-age = 2000000
+ exipres: 2j3un 2019
+ 不请求服务器 从缓存获取
+ 
+ 第二条线路 没有命中强缓存 浏览器会发送请求到服务器 请求会携带第一次请求返回的有关缓存的header信息 （last-modified/if-modified-since 和 etag、if-none-match） 有服务器根据请求中的相关header信息来对比结果
+ 是否命中写上缓存， 若命中 则服务器返回新的响应header信息 更新缓存中的对应的header信息 但是并不会返回资源 他会告知浏览器 直接从缓存获取 否则返回最新的资源内容 也就是协商缓存
+ 
+ status code 304 not modified 
+ 发送请求到服务器 同伙服务器来判断缓存是否可用
+ 
+ 字段意思
+ expires
+ http1.0规范 绝对的一个GMT格式时间自杜淳 在它之前 缓存有效 否则从服务器端获取
+ 
+ cache-control
+ max-age = number
+ http1.1  用max-age判断 最大过期时间
+ no-cache 不使用本地缓存  需要使用缓存协商 咸鱼服务器确认返回的响应是否更改 如果之前响应中存在ETAG 那么请求的时候会与服务器验证 如果资源未被修改 则可以避免重新下载
+ no-store 禁止浏览器缓存
+ public 各个节点的缓存 cdn 终端
+ private 中断服务器浏览器缓存
+ 
+ 
+ cache-control 优先级高于 expires
+ 
+ 
+ 协商缓存 是由浏览器 和 服务器协商 来确定是否缓存 协商主要通过下面俩组header自动 成对出现
+ 第一次请求头带上  last-modified  etag
+ 后续请求会带上对应的请求自动 if-modified-since if-none-match 若响应头么有前两 也不会有后俩
+ 
+ last-modified/ifmodified-sice 
+ 返回 GMT 格式时间字符串
+ 1 浏览器第一次和服务端请求 资源 服务器返回资源同时 在response中header加上 last-modified 代表这个资源在服务器上最后修改时间
+ 2 浏览器再次跟服务器请求这个资源 request header上加 if-modified-since  这个header值就是上一次请求返回 Last-modifid
+ 3 服务器再次受到资源请求 根据浏览器返回的 if-modified-since 和资源在服务器最后修改时间 判断是否有变化  204
+ 304的话 就不会再response header 中返回last-modified
+ 否则更新last-modified
+ 
+ 2 Etag/ if-none-match
+ 服务器生成每一个资源的唯一表示字符串 只要资源有变化 这个值就会变 判断和上面的一个 
+ 但是 304时候 Etag重新生成 
+ 
+ 优先级 服务器先验证Etag  继续对比 last-modified
+ 
